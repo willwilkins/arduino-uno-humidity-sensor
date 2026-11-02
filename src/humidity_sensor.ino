@@ -61,7 +61,11 @@ void setup() {
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
   // Print a message to the LCD.
-  lcd.print("Hello, World!");
+  lcd.setCursor(0, 0);
+  lcd.print("Temperature:  dC");
+  lcd.setCursor(0, 1);
+  lcd.print("Humidity:      %");
+
 }
 
 
@@ -74,7 +78,7 @@ static bool measure_environment( float *pTemperature, float *pHumidity )
   static unsigned long measurement_timestamp = millis( );
 
   /* Measure once every four seconds. */
-  if( millis( ) - measurement_timestamp > 250ul )
+  if( millis( ) - measurement_timestamp > 3000ul )
   {
     if( dht_sensor.measure( pTemperature, pHumidity ) == true )
     {
@@ -105,9 +109,12 @@ void loop() {
 
   // set the cursor to column 0, line 1
   // (note: line 1 is the second row, since counting begins with 0):
-  lcd.setCursor(0, 1);
+  lcd.setCursor(13, 0);
+  lcd.print(temperature, 0);
+  lcd.setCursor(13, 1);
   // print the number of seconds since reset:
-  lcd.print(millis() / 1000);
+  lcd.print(humidity, 0);
+
 
 }
 
